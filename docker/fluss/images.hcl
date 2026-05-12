@@ -16,30 +16,50 @@
 # limitations under the License.
 #
 
+target "fluss" {
+  dockerfile = "Dockerfile"
+  tags       = tags("fluss")
+  target     = "runtime"
 
-# --------------
-# Stream edition
-# --------------
-FROM java-base-image AS runtime
+  contexts = {
+    sources         = "../../build-target/"
+    files           = "."
+    java-base-image = "docker-image://${ images.fluss.base-image }"
+  }
+}
 
-# Install dependencies
-RUN set -ex; \
-  apt-get update; \
-  apt-get -y install gpg libsnappy1v5 gettext-base libjemalloc-dev; \
-  rm -rf /var/lib/apt/lists/*
+# Variables
+variable "DOCKER_REGISTRY" {
+  default = null
+}
 
- # Prepare environment
-ENV FLUSS_HOME=/opt/fluss
-ENV PATH=$FLUSS_HOME/bin:$PATH
-RUN groupadd --system --gid=9999 fluss && \
-     useradd --system --home-dir $FLUSS_HOME --uid=9999 --gid=fluss fluss
-WORKDIR $FLUSS_HOME
+variable "DOCKER_REPOSITORY_NAMESPACE" {
+  default = null
+}
 
-# Please copy build-target to the docker dictory first, then copy to the image.
-COPY --chown=fluss:fluss --from=sources . /opt/fluss/
+variable "FLUSS_TAG" {
+  default = "latest"
+}
 
-RUN ["chown", "-R", "fluss:fluss", "."]
-COPY --from=files docker-entrypoint.sh /
-RUN ["chmod", "+x", "/docker-entrypoint.sh"]
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["help"]
+variable "images" {
+  default = {
+    fluss = {
+      tag        = FLUSS_TAG
+      base-image = "eclipse-temurin:17-jre-noble"
+    }
+  }
+}
+
+# Helpers
+function "tags" {
+  params = [image]
+  result = [
+    join("/",
+      compact([
+        DOCKER_REGISTRY,
+        DOCKER_REPOSITORY_NAMESPACE,
+        "${image}:${images[image].tag}"
+      ])
+    )
+  ]
+}
