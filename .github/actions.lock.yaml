@@ -1,0 +1,64 @@
+version: 1
+generated_at: 2026-05-25T13:49:19Z
+internal: []
+trusted:
+  - action: actions/checkout
+    refs:
+      - v6
+    occurrences:
+      v6:
+        .github/workflows/ci-template.yaml:
+          - jobs.build.steps.[0].uses
+        .github/workflows/ci.yaml:
+          - jobs.compile-on-jdk8.steps.[0].uses
+        .github/workflows/docs-check.yaml:
+          - jobs.test-deploy.steps.[0].uses
+        .github/workflows/helm-chart.yaml:
+          - jobs.test-helm-chart.steps.[0].uses
+        .github/workflows/license-check.yml:
+          - jobs.build.steps.[0].uses
+        .github/workflows/unstable-test-reporter.yaml:
+          - jobs.report.steps.[0].uses
+  - action: actions/setup-java
+    refs:
+      - v5
+    occurrences:
+      v5:
+        .github/workflows/ci-template.yaml:
+          - jobs.build.steps.[1].uses
+        .github/workflows/ci.yaml:
+          - jobs.compile-on-jdk8.steps.[1].uses
+        .github/workflows/license-check.yml:
+          - jobs.build.steps.[1].uses
+  - action: actions/setup-node
+    refs:
+      - v6
+    occurrences:
+      v6:
+        .github/workflows/docs-check.yaml:
+          - jobs.test-deploy.steps.[3].uses
+  - action: actions/setup-python
+    refs:
+      - v5
+    occurrences:
+      v5:
+        .github/workflows/unstable-test-reporter.yaml:
+          - jobs.report.steps.[1].uses
+  - action: actions/upload-artifact
+    refs:
+      - v6
+    occurrences:
+      v6:
+        .github/workflows/ci-template.yaml:
+          - jobs.build.steps.[4].uses
+          - jobs.build.steps.[5].uses
+external: []
+local:
+  - path: ./.github/workflows/ci-template.yaml
+    occurrences:
+      .github/workflows/ci.yaml:
+        - jobs.build-on-jdk11.uses
+      .github/workflows/nightly.yaml:
+        - jobs.build-on-jdk8.uses
+docker: []
+dynamic: []
