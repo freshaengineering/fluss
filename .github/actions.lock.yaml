@@ -1,12 +1,12 @@
 version: 1
-generated_at: 2026-05-25T13:49:19Z
+generated_at: 2026-06-11T15:38:20Z
 internal: []
 trusted:
   - action: actions/checkout
     refs:
-      - v6
+      - df4cb1c069e1874edd31b4311f1884172cec0e10
     occurrences:
-      v6:
+      df4cb1c069e1874edd31b4311f1884172cec0e10:
         .github/workflows/ci-template.yaml:
           - jobs.build.steps.[0].uses
         .github/workflows/ci.yaml:
@@ -21,9 +21,9 @@ trusted:
           - jobs.report.steps.[0].uses
   - action: actions/setup-java
     refs:
-      - v5
+      - be666c2fcd27ec809703dec50e508c2fdc7f6654
     occurrences:
-      v5:
+      be666c2fcd27ec809703dec50e508c2fdc7f6654:
         .github/workflows/ci-template.yaml:
           - jobs.build.steps.[1].uses
         .github/workflows/ci.yaml:
@@ -39,9 +39,9 @@ trusted:
           - jobs.test-deploy.steps.[3].uses
   - action: actions/setup-python
     refs:
-      - v5
+      - a26af69be951a213d495a4c3e4e4022e16d87065
     occurrences:
-      v5:
+      a26af69be951a213d495a4c3e4e4022e16d87065:
         .github/workflows/unstable-test-reporter.yaml:
           - jobs.report.steps.[1].uses
   - action: actions/upload-artifact
