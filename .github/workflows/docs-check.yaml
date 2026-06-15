@@ -44,7 +44,7 @@ jobs:
         run: ./build_versioned_docs.sh
       - name: Setup blog content
         run: ./setup_blog.sh
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: 24
       - name: Install dependencies
